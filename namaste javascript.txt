@@ -1,0 +1,234 @@
+javascript is syncronous single threaded language.
+
+how js works-->>
+JavaScript Execution Context is the environment in which JavaScript code is executed. It contains information about the variables, functions, and objects that are available to the code being executed, as well as the scope chain and the value of the 'this' keyword. An execution context has two phases: creation phase and execution phase.
+
+Callstack maintains the order of execution of execution context.
+
+HOISTING -->>
+means that we can use variables and function before there declaration or anywhere in the code. 
+reason behing this is that is execution context. where initially or memory is assigned and then code execution takes place and that's why we can use varibles before initializing.
+
+
+The window object is supported by all browsers. It represents the browser's window.
+All global JavaScript objects, functions, and variables automatically become members of the window object.
+Global variables are properties of the window object.
+by default jo varible function ke andr nhi h vo global space m jaate h mtlb window object me.
+
+
+Shorted javascript code--->>>
+empty (nothing)
+because always global window object is created.
+
+
+undefined means memory is allocated but not value is assigned
+eg. var a;
+    console(a) then it will give undefined.
+not defined means memmory is not allocated
+eg. console(a) then it will give a is not defined.
+
+
+Lexical environment is the local memory along with lexical environmnent of its parent.
+A lexical environment in JavaScript is a data structure that stores the variables and functions that are defined in the current scope and all of the outer scopes.
+JavaScript engine uses scopes to find out the exact location or accessibility of variables and that particular process is known as Scope Chain.
+Scope Chain means that one variable has a scope (it may be global or local/function or block scope) is used by another variable or function having another scope (may be global or local/function or block scope).
+This complete chain formation goes on and stops when the user wishes to stop it according to the requirement.
+
+VAR, LET AND CONST: 
+var can be reassigned, let don't and const don't
+eg. var a= 10; 
+    var a=100;
+var can be hoisted and let and const can also be hoisted but they are not accessed before initialization because they are stored in seprate memory space and goes in temporal dead zone until they are initialized.
+
+Temporal Dead Zone is a behaviour that occurs with variables declared using let and
+const keywords. It is a behaviour where we try to access a variable before it is
+initialized. Examples of temporal dead zone:
+x = 23; // Gives reference error
+let x;
+function anotherRandomFunc(){
+message = "Hello"; // Throws a reference error
+let message;
+}
+anotherRandomFunc();
+
+const value can't be changed.
+
+
+Block is used when js accepst single line of code and we can to execute multiple statements. 
+eg. {}
+let and const are block scope.
+var is global scope.
+
+variable shadowing is a concept that occurs when a variable declared within a certain scope has the same name as a variable declared in an outer scope. 
+
+CLOSURE
+Closures are an ability of a function to remember the variables and functions that are declared in its outer scope.
+Closure in JavaScript is a form of lexical scoping used to preserve variables from the outer scope of a function in the inner scope of a function
+eg. function x(){
+     var a= 7;
+     return function y(){
+     console.log(a);
+     }
+    }
+    var z= x();
+    console.log(z);
+    z();
+
+
+function statement--->>
+function f(){
+  console.log();
+}
+
+
+function expression---->>
+var a= function (){
+  console.log();
+}
+
+difference is that of hoisting if we call them at top then it give error that a is not a function because initially it is undefined.
+
+
+Anonymous function---->> are used when passed as a value
+function(){
+}
+
+
+named function expression--->>
+if we give name to funtion in function expression
+
+diffrerence between parameter and arguments--->>
+jb function call krte h tb arguement bolte h.
+
+
+first class functions---->>
+ability to use function as values , passed as an arguement and returned by function .
+
+
+Callback function---->>
+function that is passed as an argument inside of another function is called a callback function.using this function we can achieve asynchronous operations.
+
+
+Higher order functions---->>
+these take function as argument or return function 
+
+
+Problem with callback functions--->>
+1) Callback hell-->> callback is calling another callback
+2) Inversion of control-->> you loose control of your code when we are using callbacks.
+
+Promises-->> 
+these is the objects which represents the eventual completion of the asynchronous operation.
+1. Before promise we used to depend on callback functions which would result in 1.) Callback Hell (Pyramid of doom) | 2.) Inversion of control
+2. Inversion of control is overcome by using promise.
+  2.1) A promise is an object that represents eventual completion/failure of an asynchronous operation.
+  2.2) A promise has 3 states: pending | fulfilled | rejected.
+  2.3)  As soon as promise is fulfilled/rejected => It updates the empty object which is assigned undefined in pending state.
+  2.4) A promise resolves only once and it is immutable. 
+  2.5) Using .then() we can control when we call the cb(callback) function.
+
+3. To avoid callback hell (Pyramid of doom) => We use promise chaining. This way our code expands vertically instead of horizontally. Chaining is done using '.then()'
+4. A very common mistake that developers do is not returning a value during chaining of promises. Always remember to return a value. This returned value will be used by the next .then()
+
+
+
+Async function-->>>
+async function always returns a promise
+
+async and await are used to handle promises.
+await can only be used inside async function.
+
+Promise apis--->>
+1) promise.all([p1, p2, p3]);
+gives output of all of these.
+if any one promise fails then it will throw an error.
+2) promise.allsettled([p1, p2, p3]);
+if any one fails then all also gives output of rest others with error in that failed promise.
+3) promise.race([p1, p2, p3]);
+it will return the result of first settled promise. either success or error
+4) promise.any([p1, p2, p3]);
+it will return the result of first settled success promise. and wait for first success.
+if all fails then return the aggregated output.
+
+
+settled mtlb success or failure
+             resolve or rejected
+             fulfilled or rejected
+
+
+Function inside object is called method.
+
+
+this keyword-->>
+The “this” keyword refers to the object that the function is a property of.
+The value of the “this” keyword will always depend on the object that is invoking
+the function.
+
+function doSomething() {
+console.log(this);
+}
+doSomething();
+output-> window
+
+call bind apply in js---->>>
+call()------>>>
+example 1:
+function sayHello(){
+return "Hello " + this.name;
+}
+var obj = {name: "Sandy"};
+sayHello.call(obj);
+// Returns "Hello Sandy"
+
+call() method allows an object to use the method (function) of another object.
+Example 2:
+var person = {
+age: 23,
+getAge: function(){
+return this.age;
+}
+}
+var person2 = {age: 54};
+person.getAge.call(person2);
+// Returns 54
+
+
+apply()----->>
+The apply method is similar to the call() method. The only difference is that,
+call() method takes arguments separately whereas, apply() method takes
+arguments as an array.
+
+function saySomething(message){
+return this.name + " is " + message;
+}
+var person4 = {name: "John"};
+saySomething.apply(person4, ["awesome"]);
+
+
+
+
+ bind()----->>
+This method returns a new function, where the value of “this” keyword will be
+bound to the owner object, which is provided as a parameter.
+Example with arguments:
+var bikeDetails = {
+displayDetails: function(registrationNumber,brandName){
+return this.name+ " , "+ "bike details: "+ registrationNumber + " , " + brandName;
+}
+}
+var person1 = {name: "Vivek"};
+var detailsOfPerson1 = bikeDetails.displayDetails.bind(person1, "TS0122", "Bullet");
+// Binds the displayDetails function to the person1 object
+detailsOfPerson1();
+// Returns Vivek, bike details: TS0452, Thunderbird
+
+
+Curring---------->>>
+Currying is an advanced technique to transform a function of arguments n, to n
+functions of one or fewer arguments.
+function add (a) {
+return function(b){
+return a + b;
+}
+}
+add(3)(4)
